@@ -1,13 +1,12 @@
-import {rerenderEntireTree} from './../render'
-
-let state = {
+let store = {
+  _state: {
     profilePage: {
-        posts: [
-        {id: 1, message: 'Hi, How are you?', likesCount: 12},
-        {id: 2, message: 'It\'s my first post', likesCount: 11},
-        {id: 3, message: 'Blablabla', likesCount: 10},
-        {id: 4, message: 'Dadada', likesCount: 19}
-      ],
+      posts: [
+      {id: 1, message: 'Hi, How are you?', likesCount: 12},
+      {id: 2, message: 'It\'s my first post', likesCount: 11},
+      {id: 3, message: 'Blablabla', likesCount: 10},
+      {id: 4, message: 'Dadada', likesCount: 19}
+    ],
     newPostText: 'Path samurai'
     },
 
@@ -28,24 +27,34 @@ let state = {
         {id: 5, message: 'Yoy'}
       ]
     }
-}
-
-let addPost = () => {
+  },
+  getState() {
+    return this._state
+  },
+  _callSubscriber() {
+    console.log("State was changed")
+  },
+  addPost() {
     let newPost = {
         id: 5,
-        message: state.profilePage.newPostText,
+        message: this._state.profilePage.newPostText,
         likesCount: 0
     };
 
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
-}
-export let updateNewPostText = (newText) => {
+    this._state.profilePage.posts.push(newPost);
+    this._state.profilePage.newPostText = '';
+    this._callSubscriber(this._state);
+  },
+  updateNewPostText(newText) { 
 
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
+    this._state.profilePage.newPostText = newText;
+    this._callSubscriber(this._state);
+  },
+  subscribe(observer) {
+    this._callSubscriber = observer;
+  }
 }
 
-export default state;
-export {addPost}
+window.store = store;
+
+export default store;

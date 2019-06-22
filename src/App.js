@@ -25,7 +25,7 @@ const App = (props) => {
           profilePage = {props.state.profilePage}
           addPost = {props.addPost}
           updateNewPostText = {props.updateNewPostText}
-          /> }/>
+          />} />
 
         </div>
       </div>
