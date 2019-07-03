@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 let mapStateToProps = (state) => {
   return {
-    posts: state.profilePage.posts,
+    posts: state.profilePage.posts,  //posts уже ссылается на другой posts
     newPostText: state.profilePage.newPostText
   }
 }
